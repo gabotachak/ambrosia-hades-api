@@ -25,6 +25,8 @@ class RoleScopeController:
         return [scope.name for scope in scopes]
 
     def get_role_scopes_by_id(self, role_id: str):
+        """Get scopes assigned to a specified role by id"""
+
         role = self.db_session.query(RoleEntity).filter_by(role_id=role_id).first()
         if not role:
             raise RoleNotFoundException(role_id)
@@ -32,6 +34,8 @@ class RoleScopeController:
         return self._get_role_scopes(role)
 
     def get_role_scopes_by_name(self, role_name: str):
+        """Get scopes assigned to a specified role by name"""
+
         role = self.db_session.query(RoleEntity).filter_by(name=role_name).first()
         if not role:
             raise RoleNotFoundException(role_name)
@@ -39,6 +43,8 @@ class RoleScopeController:
         return self._get_role_scopes(role)
 
     def _add_scopes_to_role(self, role: RoleEntity, scopes_req):
+        """Add scopes to a specified role"""
+
         scopes_to_assign = self.db_session.query(ScopeEntity).filter(ScopeEntity.name.in_(scopes_req)).all()
 
         for scope in scopes_to_assign:
