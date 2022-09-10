@@ -17,15 +17,15 @@ class ScopeNotFoundException(ResourceNotFoundException):
 
 
 class UserRolesNotFoundException(ResourceNotFoundException):
-    def __init__(self, user_id: str = None):
+    def __init__(self, user: str = None):
         self.resource = "UserRoleEntity"
-        self.resource_id = user_id
+        self.resource_id = user
 
 
 class RoleScopesNotFoundException(ResourceNotFoundException):
-    def __init__(self, role_id: str = None):
+    def __init__(self, role: str = None):
         self.resource = "RoleScopeEntity"
-        self.resource_id = role_id
+        self.resource_id = role
 
 
 class ResourceAlreadyExistsException(Exception):

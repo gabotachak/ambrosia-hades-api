@@ -19,7 +19,15 @@ def ping_pong():
 
 @role_scope_bp.route("/<string:role_id>", methods=["GET"])
 @error_decorator
-def get_role_scopes(role_id: str):
+def get_role_scopes_by_id(role_id: str):
     """Returns every scope assigned to a role"""
-    scopes = app.role_scope_controller.get_role_scopes(role_id)
+    scopes = app.role_scope_controller.get_role_scopes_by_id(role_id)
+    return jsonify({"scopes": scopes}), HTTPStatus.OK
+
+
+@role_scope_bp.route("/name/<string:role_name>", methods=["GET"])
+@error_decorator
+def get_role_scopes_by_name(role_name: str):
+    """Returns every scope assigned to a role"""
+    scopes = app.role_scope_controller.get_role_scopes_by_name(role_name)
     return jsonify({"scopes": scopes}), HTTPStatus.OK
