@@ -2,3 +2,4 @@ Flask~=2.2.2
 python-dotenv~=0.21.0
 jsonschema~=4.16.0
 SQLAlchemy~=1.4.41
+marshmallow~=3.17.1

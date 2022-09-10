@@ -1,7 +1,7 @@
 from sqlalchemy.orm import session
 
-from app.entities.role import RoleEntity
-from app.entities.user_role import UserRoleEntity
+from app.entities.role_entity import RoleEntity
+from app.entities.user_role_entity import UserRoleEntity
 
 
 class UserRoleController:

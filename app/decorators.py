@@ -2,7 +2,7 @@ from functools import wraps
 from http import HTTPStatus
 
 from flask import jsonify
-from jsonschema.exceptions import ValidationError
+from marshmallow import ValidationError
 
 from app.exceptions.exceptions import *
 from app.log import logger
@@ -23,8 +23,14 @@ def error_decorator(func):
         except ResourceNotFoundException as rnfe:
             logger.error(f"{rnfe.__class__.__name__}")
             return (
-                jsonify({ERROR_RESPONSE_TAG: f"{rnfe.resource} not found"}),
+                jsonify({ERROR_RESPONSE_TAG: f"{rnfe.resource} ({rnfe.resource_id}) not found"}),
                 HTTPStatus.NOT_FOUND,
+            )
+        except ResourceAlreadyExistsException as raee:
+            logger.error(f"{raee.__class__.__name__}")
+            return (
+                jsonify({ERROR_RESPONSE_TAG: f"{raee.resource} ({raee.resource_id}) already exists"}),
+                HTTPStatus.CONFLICT,
             )
 
     return wrapper

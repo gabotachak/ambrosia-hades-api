@@ -4,7 +4,11 @@ from dotenv import load_dotenv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
+from app.controllers.role_controller import RoleController
+from app.controllers.role_scope_controller import RoleScopeController
+from app.controllers.scope_controller import ScopeController
 from app.controllers.user_role_controller import UserRoleController
+from app.controllers.user_scope_controller import UserScopeController
 
 
 def new_session_factory():
@@ -24,4 +28,8 @@ def new_session_factory():
 session_factory = new_session_factory()
 db_session = session_factory()
 
+role_scope_controller = RoleScopeController(db_session=db_session)
+role_controller = RoleController(db_session=db_session)
+scope_controller = ScopeController(db_session=db_session)
 user_role_controller = UserRoleController(db_session=db_session)
+user_scope_controller = UserScopeController(db_session=db_session)

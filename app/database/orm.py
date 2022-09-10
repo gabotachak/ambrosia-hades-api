@@ -5,8 +5,8 @@ from datetime import datetime
 from sqlalchemy import Table, MetaData, Column, VARCHAR, DATE, BIGINT
 from sqlalchemy.orm import mapper
 
-from app.entities.role import RoleEntity
-from app.entities.user_role import UserRoleEntity
+from app.entities.role_entity import RoleEntity
+from app.entities.user_role_entity import UserRoleEntity
 
 logger = logging.getLogger(__name__)
 
