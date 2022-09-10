@@ -46,7 +46,11 @@ class RoleScopeController:
         """Add scopes to a specified role"""
 
         scopes_to_assign = self.db_session.query(ScopeEntity).filter(ScopeEntity.name.in_(scopes_list)).all()
-        old_scopes = self._get_role_scopes(role)
+
+        try:
+            old_scopes = self._get_role_scopes(role)
+        except RoleScopesNotFoundException:
+            old_scopes = []
 
         for scope in scopes_to_assign:
             if scope.name not in old_scopes:
