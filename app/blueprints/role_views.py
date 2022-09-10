@@ -23,8 +23,10 @@ def ping_pong():
 def create_role():
     """Create new role."""
     role_req = request.get_json(force=True)
+    scopes_req = role_req.pop('scopes', None)
+
     new_role = RoleSchema().load(role_req)
 
-    res = app.role_controller.create_role(new_role)
+    res = app.role_controller.create_role(new_role, scopes_req)
 
     return jsonify(res), HTTPStatus.CREATED
