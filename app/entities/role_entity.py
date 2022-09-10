@@ -1,11 +1,15 @@
 class RoleEntity:
+    role_id: str
+    name: str
+    description: str
+
     class Meta:
         # Fields to expose
         fields = ("role_id", "name", "description")
 
     def __init__(self, role_id: str = None, name: str = None, description: str = None):
         self.role_id = role_id
-        self.name = name
+        self.name = name.upper()
         self.description = description
 
     def to_dict(self):

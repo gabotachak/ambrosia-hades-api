@@ -2,6 +2,7 @@ from sqlalchemy.orm import session
 
 from app.entities.role_scope_entity import RoleScopeEntity
 from app.entities.scope_entity import ScopeEntity
+from app.exceptions.exceptions import RoleScopesNotFoundException
 
 
 class RoleScopeController:
@@ -11,9 +12,12 @@ class RoleScopeController:
     def get_role_scopes(self, role_id: str):
         """Get scopes assigned to a specified role"""
 
-        role_scopes = self.db_session.query(RoleScopeEntity).filter_by(role_id=role_id).all()
-        scopes_id = [role_scope.to_dict().get("scope_id") for role_scope in role_scopes]
+        scopes = self.db_session.query(ScopeEntity).filter(
+            RoleScopeEntity.scope_id == ScopeEntity.scope_id,
+            RoleScopeEntity.role_id == role_id
+        ).all()
 
-        scopes = self.db_session.query(ScopeEntity).filter(ScopeEntity.scope_id.in_(scopes_id)).all()
+        if len(scopes) == 0:
+            raise RoleScopesNotFoundException(role_id)
 
-        return [scope.to_dict().get("name") for scope in scopes]
+        return [scope.name for scope in scopes]

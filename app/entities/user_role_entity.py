@@ -1,16 +1,22 @@
-from datetime import date
+from datetime import datetime
 
 
 class UserRoleEntity:
+    user_id: str
+    role_id: str
+    role_name: str
+    assign_date: datetime
+    assign_status: str
+
     class Meta:
         # Fields to expose
-        fields = ("user_role_id", "user_id", "role_id", "assign_date", "assign_status")
+        fields = ("user_id", "role_id", "role_name", "assign_date", "assign_status")
 
-    def __init__(self, user_role_id: int = None, user_id: str = None, role_id: str = None,
-                 assign_date: date = None, assign_status: str = None):
-        self.user_role_id = user_role_id
+    def __init__(self, user_id: str = None, role_id: str = None, role_name: str = None,
+                 assign_date: datetime = None, assign_status: str = None):
         self.user_id = user_id
         self.role_id = role_id
+        self.role_name = role_name
         self.assign_date = assign_date
         self.assign_status = assign_status
 
@@ -18,6 +24,7 @@ class UserRoleEntity:
         return {
             "user_id": self.user_id,
             "role_id": self.role_id,
+            "role_name": self.role_name,
             "assign_date": self.assign_date,
             "assign_status": self.assign_status
         }
@@ -28,7 +35,5 @@ class UserRoleEntity:
 
         user_eq = self.user_id == other.user_id
         role_eq = self.role_id == other.role_id
-        assign_date_eq = self.assign_date = other.assign_date
-        assign_status_eq = self.assign_status = other.assign_status
 
-        return user_eq and role_eq and assign_date_eq and assign_status_eq
+        return user_eq and role_eq

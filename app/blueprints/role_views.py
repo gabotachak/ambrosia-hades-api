@@ -19,7 +19,14 @@ def ping_pong():
     return jsonify(PING_RESPONSE), HTTPStatus.OK
 
 
-@role_bp.route("/<string:role_name>", methods=["GET"])
+@role_bp.route("/<string:role_id>", methods=["GET"])
+@error_decorator
+def get_role_by_id(role_id: str):
+    res = app.role_controller.get_role_by_id(role_id)
+    return jsonify(res), HTTPStatus.OK
+
+
+@role_bp.route("/name/<string:role_name>", methods=["GET"])
 @error_decorator
 def get_role_by_name(role_name: str):
     res = app.role_controller.get_role_by_name(role_name)

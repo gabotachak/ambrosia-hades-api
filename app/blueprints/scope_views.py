@@ -18,7 +18,14 @@ def ping_pong():
     return jsonify(PING_RESPONSE), HTTPStatus.OK
 
 
-@scope_bp.route("/<string:scope_name>", methods=["GET"])
+@scope_bp.route("/<string:scope_id>", methods=["GET"])
+@error_decorator
+def get_scope_by_id(scope_id: str):
+    res = app.scope_controller.get_scope_by_id(scope_id)
+    return jsonify(res), HTTPStatus.OK
+
+
+@scope_bp.route("/name/<string:scope_name>", methods=["GET"])
 @error_decorator
 def get_scope_by_name(scope_name: str):
     res = app.scope_controller.get_scope_by_name(scope_name)

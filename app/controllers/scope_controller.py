@@ -8,7 +8,18 @@ class ScopeController:
     def __init__(self, db_session: session = None):
         self.db_session = db_session
 
+    def get_scope_by_id(self, scope_id):
+        """Get scope by scope id"""
+
+        scope = self.db_session.query(ScopeEntity).filter_by(scope_id=scope_id).first()
+        if not scope:
+            raise ScopeNotFoundException(scope_id)
+
+        return scope.to_dict()
+
     def get_scope_by_name(self, scope_name):
+        """Get scope by scope name"""
+
         scope = self.db_session.query(ScopeEntity).filter_by(name=scope_name).first()
         if not scope:
             raise ScopeNotFoundException(scope_name)
