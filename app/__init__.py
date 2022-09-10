@@ -10,8 +10,12 @@ from app.modules import *
 # Active endpoints noted as following:
 # (url_prefix, blueprint_object)
 ACTIVE_ENDPOINTS = [
-    {"url": "/ping", "bp": bp_ping},
-    {"url": "/roles/users/", "bp": user_role_bp},
+    {"url": "/ping", "bp": ping_bp},
+    {"url": "/scopes/role/", "bp": role_scope_bp},
+    {"url": "/role", "bp": role_bp},
+    {"url": "/scope", "bp": scope_bp},
+    {"url": "/roles/user/", "bp": user_role_bp},
+    {"url": "/scopes/user/", "bp": user_scope_bp},
 ]
 
 

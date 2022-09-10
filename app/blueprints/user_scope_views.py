@@ -6,10 +6,10 @@ from flask import Blueprint, jsonify
 from app.decorators import error_decorator
 from app.utils.constants import PING_RESPONSE
 
-ping_bp = Blueprint("ping", __name__)
+user_scope_bp = Blueprint("user_scope", __name__)
 
 
-@ping_bp.route("/", methods=["GET"])
+@user_scope_bp.route("/ping", methods=["GET"])
 @error_decorator
 def ping_pong():
     """Ping endpoint, used to know if the app is up."""

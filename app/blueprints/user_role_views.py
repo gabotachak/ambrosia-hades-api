@@ -7,7 +7,7 @@ import app
 from app.decorators import error_decorator
 from app.utils.constants import PING_RESPONSE
 
-user_role_bp = Blueprint("users", __name__)
+user_role_bp = Blueprint("user_role", __name__)
 
 
 @user_role_bp.route("/ping", methods=["GET"])
