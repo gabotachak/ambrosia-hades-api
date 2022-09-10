@@ -3,6 +3,7 @@ from http import HTTPStatus
 
 from flask import Blueprint, jsonify
 
+import app
 from app.decorators import error_decorator
 from app.utils.constants import PING_RESPONSE
 
@@ -14,3 +15,11 @@ role_scope_bp = Blueprint("role_scope", __name__)
 def ping_pong():
     """Ping endpoint, used to know if the app is up."""
     return jsonify(PING_RESPONSE), HTTPStatus.OK
+
+
+@role_scope_bp.route("/<string:role_id>", methods=["GET"])
+@error_decorator
+def get_role_scopes(role_id: str):
+    """Returns every scope assigned to a role"""
+    scopes = app.role_scope_controller.get_role_scopes(role_id)
+    return jsonify({"scopes": scopes}), HTTPStatus.OK

@@ -20,6 +20,6 @@ def ping_pong():
 @user_scope_bp.route("/<string:user_id>", methods=["GET"])
 @error_decorator
 def get_user_scopes(user_id: str):
-    """Returns every role assigned to a user"""
+    """Returns every scope assigned to a user"""
     roles = app.user_scope_controller.get_user_scopes(user_id)
     return jsonify({"scopes": roles}), HTTPStatus.OK

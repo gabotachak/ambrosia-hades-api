@@ -4,7 +4,13 @@ class ResourceNotFoundException(Exception):
         self.resource_id = resource_id
 
 
-class UserRoleNotFound(ResourceNotFoundException):
+class RoleNotFoundException(ResourceNotFoundException):
+    def __init__(self, role: str = None):
+        self.resource = "RoleEntity"
+        self.resource_id = role
+
+
+class UserRoleNotFoundException(ResourceNotFoundException):
     def __init__(self, user_id: str = None, role_id: str = None):
         self.resource = "UserRoleEntity"
         self.resource_id = f"user_id: {user_id}, role_id: {role_id}"
