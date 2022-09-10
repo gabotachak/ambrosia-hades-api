@@ -20,3 +20,9 @@ class RoleAlreadyExistsException(ResourceAlreadyExistsException):
     def __init__(self, name: str = None):
         self.resource = "RoleEntity"
         self.resource_id = name
+
+
+class ScopeAlreadyExistsException(ResourceAlreadyExistsException):
+    def __init__(self, name: str = None):
+        self.resource = "ScopeEntity"
+        self.resource_id = name

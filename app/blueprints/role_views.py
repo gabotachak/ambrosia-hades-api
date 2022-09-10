@@ -5,6 +5,7 @@ from flask import Blueprint, jsonify, request
 
 import app
 from app.decorators import error_decorator
+from app.schemas.list_string_schema import ListStringSchema
 from app.schemas.role_schema import RoleSchema
 from app.utils.constants import PING_RESPONSE
 
@@ -26,6 +27,8 @@ def create_role():
     scopes_req = role_req.pop('scopes', None)
 
     new_role = RoleSchema().load(role_req)
+    if scopes_req is not None:
+        ListStringSchema().load({'list_string': scopes_req})
 
     res = app.role_controller.create_role(new_role, scopes_req)
 
