@@ -40,10 +40,12 @@ def create_role():
     role_req = request.get_json(force=True)
     scopes_req = role_req.pop(SCOPES, None)
 
-    new_role = RoleSchema().load(role_req)
     if scopes_req is not None:
-        ScopeListSchema().load({SCOPES: scopes_req})
+        scopes_list = ScopeListSchema().load({SCOPES: scopes_req})
+    else:
+        scopes_list = []
 
-    res = app.role_controller.create_role(new_role, scopes_req)
+    new_role = RoleSchema().load(role_req)
+    res = app.role_controller.create_role(new_role, scopes_list)
 
     return jsonify(res), HTTPStatus.CREATED

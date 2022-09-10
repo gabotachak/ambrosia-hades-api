@@ -63,4 +63,7 @@ class RoleController:
 
         self.db_session.commit()
 
-        return new_role.to_dict()
+        role_dict = new_role.to_dict()
+        role_dict[SCOPES] = [scope.name for scope in self._get_role_scopes(new_role)]
+
+        return role_dict

@@ -34,14 +34,36 @@ def get_role_scopes_by_name(role_name: str):
     return jsonify({SCOPES: scopes}), HTTPStatus.OK
 
 
+@role_scope_bp.route("/<string:role_id>", methods=["POST"])
+@error_decorator
+def add_scopes_to_role_by_id(role_id: str):
+    """Add a scope list to a role by role id"""
+    scopes_req = request.get_json(force=True)
+    scopes_list = ScopeListSchema().load(scopes_req)
+
+    res = app.role_scope_controller.add_scopes_to_role_by_id(role_id, scopes_list)
+    return jsonify(res), HTTPStatus.OK
+
+
+@role_scope_bp.route("/name/<string:role_name>", methods=["POST"])
+@error_decorator
+def add_scopes_to_role_by_name(role_name: str):
+    """Add a scope list to a role by role name"""
+    scopes_req = request.get_json(force=True)
+    scopes_list = ScopeListSchema().load(scopes_req)
+
+    res = app.role_scope_controller.add_scopes_to_role_by_name(role_name, scopes_list)
+    return jsonify(res), HTTPStatus.OK
+
+
 @role_scope_bp.route("/<string:role_id>", methods=["PUT"])
 @error_decorator
 def set_scope_in_role_by_id(role_id: str):
     """Set a scope list in a role by role id"""
     scopes_req = request.get_json(force=True)
-    ScopeListSchema().load(scopes_req)
+    scopes_list = ScopeListSchema().load(scopes_req)
 
-    res = app.role_scope_controller.set_scope_in_role_by_id(role_id, scopes_req)
+    res = app.role_scope_controller.set_scopes_in_role_by_id(role_id, scopes_list)
     return jsonify(res), HTTPStatus.OK
 
 
@@ -50,7 +72,7 @@ def set_scope_in_role_by_id(role_id: str):
 def set_scope_in_role_by_name(role_name: str):
     """Set a scope list in a role by role name"""
     scopes_req = request.get_json(force=True)
-    ScopeListSchema().load(scopes_req)
+    scopes_list = ScopeListSchema().load(scopes_req)
 
-    res = app.role_scope_controller.set_scopes_in_role_by_name(role_name, scopes_req.get(SCOPES))
+    res = app.role_scope_controller.set_scopes_in_role_by_name(role_name, scopes_list)
     return jsonify(res), HTTPStatus.OK
