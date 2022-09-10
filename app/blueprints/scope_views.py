@@ -5,7 +5,7 @@ from flask import Blueprint, jsonify, request
 
 import app
 from app.decorators import error_decorator
-from app.schemas.list_string_schema import ListStringSchema
+from app.schemas.scope_list_schema import ScopeListSchema
 from app.schemas.role_schema import RoleSchema
 from app.schemas.scope_schema import ScopeSchema
 from app.utils.constants import PING_RESPONSE

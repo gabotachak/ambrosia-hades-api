@@ -17,7 +17,7 @@ def error_decorator(func):
         except ValidationError as ve:
             logger.error(f"{ve.__class__.__name__}: {ve}")
             return (
-                jsonify({ERROR_RESPONSE_TAG: "Invalid JSON format"}),
+                jsonify({ERROR_RESPONSE_TAG: f"Invalid JSON format ({ve})"}),
                 HTTPStatus.BAD_REQUEST,
             )
         except ResourceNotFoundException as rnfe:
