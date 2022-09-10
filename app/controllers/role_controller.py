@@ -52,7 +52,12 @@ class RoleController:
         if scope_req:
             scopes_to_assign = self.db_session.query(ScopeEntity).filter(ScopeEntity.name.in_(scope_req)).all()
             for scope in scopes_to_assign:
-                role_scope = RoleScopeEntity(role_id=new_role.role_id, scope_id=scope.scope_id)
+                role_scope = RoleScopeEntity(
+                    role_id=new_role.role_id,
+                    role_name=new_role.name,
+                    scope_id=scope.scope_id,
+                    scope_name=scope.name
+                )
                 self.db_session.add(role_scope)
 
         self.db_session.commit()
