@@ -10,6 +10,12 @@ class RoleNotFoundException(ResourceNotFoundException):
         self.resource_id = role
 
 
+class ScopeNotFoundException(ResourceNotFoundException):
+    def __init__(self, scope: str = None):
+        self.resource = "ScopeEntity"
+        self.resource_id = scope
+
+
 class UserRoleNotFoundException(ResourceNotFoundException):
     def __init__(self, user_id: str = None, role_id: str = None):
         self.resource = "UserRoleEntity"

@@ -5,8 +5,6 @@ from flask import Blueprint, jsonify, request
 
 import app
 from app.decorators import error_decorator
-from app.schemas.scope_list_schema import ScopeListSchema
-from app.schemas.role_schema import RoleSchema
 from app.schemas.scope_schema import ScopeSchema
 from app.utils.constants import PING_RESPONSE
 
@@ -18,6 +16,13 @@ scope_bp = Blueprint("scope", __name__)
 def ping_pong():
     """Ping endpoint, used to know if the app is up."""
     return jsonify(PING_RESPONSE), HTTPStatus.OK
+
+
+@scope_bp.route("/<string:scope_name>", methods=["GET"])
+@error_decorator
+def get_scope_by_name(scope_name: str):
+    res = app.scope_controller.get_scope_by_name(scope_name)
+    return jsonify(res), HTTPStatus.OK
 
 
 @scope_bp.route("/", methods=["POST"])
