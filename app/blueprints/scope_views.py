@@ -36,9 +36,9 @@ def get_scope_by_name(scope_name: str):
 @error_decorator
 def create_scope():
     """Create new scope."""
-    scope_req = request.get_json(force=True)
+    scopes_req = request.get_json(force=True)
 
-    new_scope = ScopeSchema().load(scope_req)
+    new_scope = ScopeSchema().load(scopes_req)
 
     res = app.scope_controller.create_scope(new_scope)
 

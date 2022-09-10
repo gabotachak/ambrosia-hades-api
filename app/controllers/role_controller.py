@@ -4,6 +4,7 @@ from app.entities.role_entity import RoleEntity
 from app.entities.role_scope_entity import RoleScopeEntity
 from app.entities.scope_entity import ScopeEntity
 from app.exceptions.exceptions import RoleAlreadyExistsException, RoleNotFoundException
+from app.utils.constants import SCOPES
 
 
 class RoleController:
@@ -26,7 +27,7 @@ class RoleController:
             raise RoleNotFoundException(role_id)
 
         role_dict = role.to_dict()
-        role_dict['scopes'] = [scope.name for scope in self._get_role_scopes(role)]
+        role_dict[SCOPES] = [scope.name for scope in self._get_role_scopes(role)]
         return role_dict
 
     def get_role_by_name(self, role_name):
@@ -37,10 +38,10 @@ class RoleController:
             raise RoleNotFoundException(role_name)
 
         role_dict = role.to_dict()
-        role_dict['scopes'] = [scope.name for scope in self._get_role_scopes(role)]
+        role_dict[SCOPES] = [scope.name for scope in self._get_role_scopes(role)]
         return role_dict
 
-    def create_role(self, new_role: RoleEntity, scope_req=None):
+    def create_role(self, new_role: RoleEntity, scopes_req=None):
         """Storage new role in database"""
 
         role = self.db_session.query(RoleEntity).filter_by(name=new_role.name).first()
@@ -49,8 +50,8 @@ class RoleController:
 
         self.db_session.add(new_role)
 
-        if scope_req:
-            scopes_to_assign = self.db_session.query(ScopeEntity).filter(ScopeEntity.name.in_(scope_req)).all()
+        if scopes_req:
+            scopes_to_assign = self.db_session.query(ScopeEntity).filter(ScopeEntity.name.in_(scopes_req)).all()
             for scope in scopes_to_assign:
                 role_scope = RoleScopeEntity(
                     role_id=new_role.role_id,

@@ -5,7 +5,7 @@ from flask import Blueprint, jsonify
 
 import app
 from app.decorators import error_decorator
-from app.utils.constants import PING_RESPONSE
+from app.utils.constants import PING_RESPONSE, SCOPES
 
 user_scope_bp = Blueprint("user_scope", __name__)
 
@@ -22,4 +22,4 @@ def ping_pong():
 def get_user_scopes(user_id: str):
     """Returns every scope assigned to a user"""
     roles = app.user_scope_controller.get_user_scopes(user_id)
-    return jsonify({"scopes": roles}), HTTPStatus.OK
+    return jsonify({SCOPES: roles}), HTTPStatus.OK

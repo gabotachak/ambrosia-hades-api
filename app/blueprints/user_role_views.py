@@ -5,7 +5,7 @@ from flask import Blueprint, jsonify
 
 import app
 from app.decorators import error_decorator
-from app.utils.constants import PING_RESPONSE
+from app.utils.constants import PING_RESPONSE, ROLES
 
 user_role_bp = Blueprint("user_role", __name__)
 
@@ -22,4 +22,4 @@ def ping_pong():
 def get_user_roles(user_id: str):
     """Returns every role assigned to a user"""
     roles = app.user_role_controller.get_user_roles(user_id)
-    return jsonify({"roles": roles}), HTTPStatus.OK
+    return jsonify({ROLES: roles}), HTTPStatus.OK
