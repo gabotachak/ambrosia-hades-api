@@ -21,6 +21,7 @@ ACTIVE_ENDPOINTS = [
 
 def create_app(start_orm: bool = True):
     """Create Flask app."""
+
     load_dotenv()
     app = Flask(__name__)
     CORS(app)

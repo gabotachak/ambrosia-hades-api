@@ -10,6 +10,7 @@ class UserRoleController:
 
     def get_user_roles(self, user_id: str):
         """Get roles assigned to a specified user"""
+
         roles = self.db_session.query(RoleEntity).filter(
             UserRoleEntity.user_id == user_id,
             UserRoleEntity.role_id == RoleEntity.role_id

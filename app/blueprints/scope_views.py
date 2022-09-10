@@ -21,6 +21,8 @@ def ping_pong():
 @scope_bp.route("/<string:scope_id>", methods=["GET"])
 @error_decorator
 def get_scope_by_id(scope_id: str):
+    """Get scope info by scope id."""
+
     res = app.scope_controller.get_scope_by_id(scope_id)
     return jsonify(res), HTTPStatus.OK
 
@@ -28,6 +30,8 @@ def get_scope_by_id(scope_id: str):
 @scope_bp.route("/name/<string:scope_name>", methods=["GET"])
 @error_decorator
 def get_scope_by_name(scope_name: str):
+    """Get scope info by scope name."""
+
     res = app.scope_controller.get_scope_by_name(scope_name)
     return jsonify(res), HTTPStatus.OK
 
@@ -36,6 +40,7 @@ def get_scope_by_name(scope_name: str):
 @error_decorator
 def create_scope():
     """Create new scope."""
+
     scopes_req = request.get_json(force=True)
 
     new_scope = ScopeSchema().load(scopes_req)

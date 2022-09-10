@@ -15,6 +15,7 @@ role_scope_bp = Blueprint("role_scope", __name__)
 @error_decorator
 def ping_pong():
     """Ping endpoint, used to know if the app is up."""
+
     return jsonify(PING_RESPONSE), HTTPStatus.OK
 
 
@@ -22,6 +23,7 @@ def ping_pong():
 @error_decorator
 def get_role_scopes_by_id(role_id: str):
     """Returns every scope assigned to a role by role id"""
+
     scopes = app.role_scope_controller.get_role_scopes_by_id(role_id)
     return jsonify({SCOPES: scopes}), HTTPStatus.OK
 
@@ -30,6 +32,7 @@ def get_role_scopes_by_id(role_id: str):
 @error_decorator
 def get_role_scopes_by_name(role_name: str):
     """Returns every scope assigned to a role by role name"""
+
     scopes = app.role_scope_controller.get_role_scopes_by_name(role_name)
     return jsonify({SCOPES: scopes}), HTTPStatus.OK
 
@@ -38,6 +41,7 @@ def get_role_scopes_by_name(role_name: str):
 @error_decorator
 def add_scopes_to_role_by_id(role_id: str):
     """Add a scope list to a role by role id"""
+
     scopes_req = request.get_json(force=True)
     scopes_list = ScopeListSchema().load(scopes_req)
 
@@ -49,6 +53,7 @@ def add_scopes_to_role_by_id(role_id: str):
 @error_decorator
 def add_scopes_to_role_by_name(role_name: str):
     """Add a scope list to a role by role name"""
+
     scopes_req = request.get_json(force=True)
     scopes_list = ScopeListSchema().load(scopes_req)
 
@@ -60,6 +65,7 @@ def add_scopes_to_role_by_name(role_name: str):
 @error_decorator
 def set_scope_in_role_by_id(role_id: str):
     """Set a scope list in a role by role id"""
+
     scopes_req = request.get_json(force=True)
     scopes_list = ScopeListSchema().load(scopes_req)
 
@@ -71,6 +77,7 @@ def set_scope_in_role_by_id(role_id: str):
 @error_decorator
 def set_scope_in_role_by_name(role_name: str):
     """Set a scope list in a role by role name"""
+
     scopes_req = request.get_json(force=True)
     scopes_list = ScopeListSchema().load(scopes_req)
 

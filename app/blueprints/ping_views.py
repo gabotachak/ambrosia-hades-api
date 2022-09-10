@@ -13,4 +13,5 @@ ping_bp = Blueprint("ping", __name__)
 @error_decorator
 def ping_pong():
     """Ping endpoint, used to know if the app is up."""
+
     return jsonify(PING_RESPONSE), HTTPStatus.OK

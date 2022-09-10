@@ -14,12 +14,14 @@ user_role_bp = Blueprint("user_role", __name__)
 @error_decorator
 def ping_pong():
     """Ping endpoint, used to know if the app is up."""
+
     return jsonify(PING_RESPONSE), HTTPStatus.OK
 
 
 @user_role_bp.route("/<string:user_id>", methods=["GET"])
 @error_decorator
-def get_user_roles(user_id: str):
-    """Returns every role assigned to a user"""
-    roles = app.user_role_controller.get_user_roles(user_id)
-    return jsonify({ROLES: roles}), HTTPStatus.OK
+def get_user_roles_by_id(user_id: str):
+    """Returns every role assigned to a user by user id"""
+
+    scopes = app.user_role_controller.get_user_roles(user_id)
+    return jsonify({ROLES: scopes}), HTTPStatus.OK
