@@ -1,22 +1,27 @@
 import os
-from urllib.parse import urlparse
 
 from dotenv import load_dotenv
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 
-from app.controllers.ping_controller import PingController
+from app.controllers.user_role_controller import UserRoleController
 
 
-def create_database_conn():
+def new_session_factory():
     load_dotenv()
 
-    db_uri = os.getenv("DB_URI", "")
-    parsed_uri = urlparse(db_uri)
+    db_host = os.getenv("DB_HOST", "")
+    db_port = os.getenv("DB_PORT", "")
+    db_schema = os.getenv("DB_SCHEMA", "")
+    db_user = os.getenv("DB_USER", "")
+    db_password = os.getenv("DB_PASSWORD", "")
 
-    host = parsed_uri.hostname
-    port = parsed_uri.port
-    schema = parsed_uri.path[1:]
-    users = os.getenv("DB_USER", "")
-    password = os.getenv("DB_PASSWORD", "")
+    uri = f"mysql+pymysql://{db_user}:{db_password}@{db_host}:{db_port}/{db_schema}"
+
+    return sessionmaker(bind=create_engine(uri))
 
 
-ping_controller = PingController()
+session_factory = new_session_factory()
+db_session = session_factory()
+
+user_role_controller = UserRoleController(db_session=db_session)

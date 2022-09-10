@@ -3,13 +3,14 @@ from http import HTTPStatus
 
 from flask import Blueprint, jsonify
 
-import app
+from app.decorators import error_decorator
+from app.utils.constants import PING_RESPONSE
 
-ping = Blueprint("ping", __name__)
+bp_ping = Blueprint("ping", __name__)
 
 
-@ping.route("/", methods=["GET"])
+@bp_ping.route("/", methods=["GET"])
+@error_decorator
 def ping_pong():
     """Ping endpoint, used to know if the app is up."""
-    response = app.ping_controller.ping_pong()
-    return jsonify(response), HTTPStatus.OK
+    return jsonify(PING_RESPONSE), HTTPStatus.OK
