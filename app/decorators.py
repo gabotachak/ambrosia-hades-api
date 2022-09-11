@@ -17,19 +17,19 @@ def error_decorator(func):
         except ValidationError as ve:
             logger.error(f"{ve.__class__.__name__}: {ve}")
             return (
-                jsonify({ERROR_RESPONSE_TAG: f"Invalid JSON format ({ve})"}),
+                jsonify({ERROR_RESPONSE: f"Invalid JSON format ({ve})"}),
                 HTTPStatus.BAD_REQUEST,
             )
         except ResourceNotFoundException as rnfe:
             logger.error(f"{rnfe.__class__.__name__}")
             return (
-                jsonify({ERROR_RESPONSE_TAG: f"{rnfe.resource} ({rnfe.resource_id}) not found"}),
+                jsonify({ERROR_RESPONSE: f"{rnfe.resource} ({rnfe.resource_id}) not found"}),
                 HTTPStatus.NOT_FOUND,
             )
         except ResourceAlreadyExistsException as raee:
             logger.error(f"{raee.__class__.__name__}")
             return (
-                jsonify({ERROR_RESPONSE_TAG: f"{raee.resource} ({raee.resource_id}) already exists"}),
+                jsonify({ERROR_RESPONSE: f"{raee.resource} ({raee.resource_id}) already exists"}),
                 HTTPStatus.CONFLICT,
             )
 

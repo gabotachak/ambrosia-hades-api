@@ -1,7 +1,7 @@
 PING_RESPONSE = {"message": "pong"}
 
-SUCCESS_RESPONSE_TAG = "success"
-ERROR_RESPONSE_TAG = "error"
+SUCCESS_RESPONSE = "success"
+ERROR_RESPONSE = "error"
 
 ROLES = 'roles'
 SCOPES = 'scopes'
