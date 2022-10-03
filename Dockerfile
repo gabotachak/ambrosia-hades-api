@@ -4,8 +4,8 @@ FROM python:3.10-alpine
 
 WORKDIR /ambrosia-hades-api
 
-ENV DB_HOST host.docker.internal
-ENV DB_PORT 3308
+ENV DB_HOST 35.232.102.73
+ENV DB_PORT 3306
 ENV DB_SCHEMA hades
 ENV DB_USER root
 ENV DB_PASSWORD ambrosia
@@ -17,3 +17,5 @@ RUN pip3 install -r requirements.txt
 COPY . .
 
 CMD ["python3", "-m", "flask", "run", "--host=0.0.0.0"]
+
+EXPOSE 4000
