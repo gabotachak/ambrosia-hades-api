@@ -4,7 +4,7 @@ FROM python:3.10-alpine
 
 WORKDIR /ambrosia-hades-api
 
-ENV DB_HOST 35.232.102.73
+ENV DB_HOST 34.171.41.228
 ENV DB_PORT 3306
 ENV DB_SCHEMA hades
 ENV DB_USER root
